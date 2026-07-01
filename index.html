@@ -300,6 +300,18 @@
   .skill-card p {
     font-size: 13px; color: var(--text-secondary); line-height: 1.7;
   }
+  .skill-card ul {
+    list-style: none; padding: 0; margin: 0;
+  }
+  .skill-card ul li {
+    font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+    padding: 2px 0; padding-left: 16px; position: relative;
+  }
+  .skill-card ul li::before {
+    content: ''; position: absolute; left: 0; top: 10px;
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent); opacity: 0.4;
+  }
   .skill-tags { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px; }
   .skill-tags span {
     padding: 3px 10px; border-radius: 20px;
@@ -456,7 +468,7 @@
     </div>
   </div>
   <p class="hero-subtitle reveal reveal-delay-1">
-    西北工业大学计算数学博士，专注于 GPU 高性能计算与大模型推理优化。在 CPU-GPU 异构并行、混合精度计算、时空并行算法领域有深入研究，具备从底层算子到推理系统的全栈工程能力。
+    西北工业大学计算数学博士，专注于高性能数值算法与并行计算。在 CPU-GPU 异构并行、混合精度计算、时空并行算法领域有深入研究，具备从底层算子到推理系统的全栈工程能力。
   </p>
   <div class="hero-meta reveal reveal-delay-2">
     <span>西北工业大学 · 计算数学博士</span>
@@ -521,7 +533,10 @@
           <span class="edu-tag en">MPI</span>
           <span class="edu-tag">混合精度</span>
           <span class="edu-tag en">ParaDiag</span>
-          <span class="edu-tag en">CUTLASS</span>
+		  <span class="edu-tag en">CUBLAS</span>
+          <span class="edu-tag en">CUDSS</span>
+		  <span class="edu-tag en">CUSPARSE</span>
+		  <span class="edu-tag en">CUTLASS</span>
         </div>
       </div>
     </div>
@@ -539,6 +554,10 @@
         <p><strong>排名：</strong>2 / 66 · 考研成绩 413 分</p>
         <p><strong>荣誉：</strong>国家奖学金（教育部，2021-2022）、一等学业奖学金 ×2、校优秀毕业生</p>
         <p><strong>核心课程：</strong>算法与优化、机器学习中的算法及其应用、偏微分方程的有限差分法（均 90+）</p>
+		<div>
+          <span class="edu-tag">多尺度耦合</span>
+		  <span class="edu-tag en">Eigen</span>
+        </div>
       </div>
     </div>
 
@@ -553,7 +572,7 @@
       <div class="edu-details">
         <p><strong>排名：</strong>10 / 42</p>
         <p><strong>核心课程：</strong>数学分析、偏微分方程数值解、常微分方程、C 程序设计（均 90+）</p>
-        <p><strong>荣誉：</strong>校三等奖学金、院优秀学生</p>
+        <p><strong>荣誉：</strong>数学建模国赛省级三等奖，校三等奖学金、院优秀学生</p>
       </div>
     </div>
   </div>
@@ -612,7 +631,12 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
       </div>
       <h3>高性能数值计算 & 异构并行</h3>
-      <p>精通偏微分方程数值解法与优化算法，擅长将数学理论转化为高效并行代码。熟练 <span class="en">C++ / CUDA C++</span>、<span class="en">Python</span>，掌握 <span class="en">MPI + CUDA</span> 多卡异构开发，会使用 <span class="en">Nsight / NCU</span> 等调优工具定位 <span class="en">Kernel</span> 瓶颈。深度使用 <span class="en">CUTLASS</span>、<span class="en">cuBLAS</span>、<span class="en">cuSPARSE</span> 等 <span class="en">NVIDIA GPU</span> 加速库。</p>
+      <ul>
+        <li>精通偏微分方程数值解法与优化算法，擅长将数学理论转化为高效并行代码</li>
+        <li>熟练 <span class="en">C++ / CUDA C++</span>、<span class="en">Python</span>，掌握 <span class="en">MPI + CUDA</span> 多卡异构开发</li>
+        <li>会使用 <span class="en">Nsight / NCU</span> 等调优工具定位 <span class="en">Kernel</span> 瓶颈</li>
+        <li>深度使用 <span class="en">CUTLASS</span>、<span class="en">cuBLAS</span>、<span class="en">cuSPARSE</span> 等 <span class="en">NVIDIA GPU</span> 加速库</li>
+      </ul>
       <div class="skill-tags">
         <span class="en">C++ / CUDA C++</span>
         <span class="en">MPI + CUDA</span>
@@ -628,7 +652,11 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v4a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><path d="M12 18v4"/></svg>
       </div>
       <h3>大模型系统 & 推理引擎</h3>
-      <p>掌握 Transformer 架构及常见分布式框架（<span class="en">DeepSpeed</span> 等），熟悉 <span class="en">vLLM</span>、<span class="en">TensorRT-LLM</span> 推理引擎，了解 <span class="en">PagedAttention</span>、<span class="en">KV Cache</span> 等主流推理优化方案。掌握 <span class="en">RAG</span>、<span class="en">Agent</span>、<span class="en">MCP</span> 落地范式，依托大模型辅助算法与 <span class="en">CUDA</span> 代码优化。</p>
+      <ul>
+        <li>掌握 Transformer 架构及常见分布式框架（<span class="en">DeepSpeed</span> 等）</li>
+        <li>熟悉 <span class="en">vLLM</span>、<span class="en">TensorRT-LLM</span> 推理引擎，了解 <span class="en">PagedAttention</span>、<span class="en">KV Cache</span> 等主流推理优化方案</li>
+        <li>掌握 <span class="en">RAG</span>、<span class="en">Agent</span>、<span class="en">MCP</span> 落地范式，依托大模型辅助算法与 <span class="en">CUDA</span> 代码优化</li>
+      </ul>
       <div class="skill-tags">
         <span class="en">vLLM</span>
         <span class="en">TensorRT-LLM</span>
@@ -644,7 +672,11 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
       </div>
       <h3>编程语言 & 工具链</h3>
-      <p>熟练使用多种编程语言进行高性能开发与 AI 工程实践，善于利用 AI 辅助工具提升研发效率。</p>
+      <ul>
+        <li>熟练使用 <span class="en">Python</span>、<span class="en">C / C++</span>、<span class="en">CUDA C++</span> 进行高性能开发与 AI 工程实践</li>
+        <li>使用 <span class="en">LaTeX</span> 进行学术论文排版，<span class="en">Git</span> 进行版本管理</li>
+        <li>日常开发环境为 <span class="en">Linux / WSL</span>，善于利用 AI 辅助工具提升研发效率</li>
+      </ul>
       <div class="skill-tags">
         <span class="en">Python</span>
         <span class="en">C / C++</span>
