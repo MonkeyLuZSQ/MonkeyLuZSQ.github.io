@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>郑少奇 — 个人简历</title>
+<style>
+  /* ========== Reset & Base ========== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0d1117;
+    --bg-card: rgba(22, 27, 34, 0.75);
+    --bg-card-hover: rgba(30, 37, 46, 0.85);
+    --bg-alt: rgba(17, 22, 28, 0.6);
+    --text-primary: #f0f6fc;
+    --text-secondary: #b1bac4;
+    --text-tertiary: #8b949e;
+    --accent: #58a6ff;
+    --accent-hover: #79c0ff;
+    --border: rgba(240, 246, 252, 0.1);
+    --nav-bg: rgba(13, 17, 23, 0.8);
+    --tag-bg: rgba(110, 118, 129, 0.15);
+    --tag-border: rgba(110, 118, 129, 0.3);
+    --section-gap: 120px;
+    --green: #3fb950;
+  }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                 "Helvetica Neue", "PingFang SC", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* English text uses Times New Roman */
+  .en, .pub-title, .pub-journal, .hero-meta a, nav a[href^="http"] {
+    font-family: "Times New Roman", "Times New Roman", Times, serif;
+  }
+
+  ::selection { background: rgba(88, 166, 255, 0.25); }
+
+  /* ========== Particle Canvas ========== */
+  #particle-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+  }
+
+  /* ========== Navigation ========== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: var(--nav-bg);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: transform 0.35s ease;
+  }
+  nav.nav-hidden { transform: translateY(-100%); }
+
+  .nav-inner {
+    max-width: 960px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; height: 52px;
+  }
+  .nav-name {
+    font-size: 16px; font-weight: 600; letter-spacing: -0.02em;
+    color: var(--text-primary); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; color: var(--text-secondary); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text-primary); }
+
+  /* ========== Layout ========== */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  section {
+    padding-top: var(--section-gap);
+    padding-bottom: 40px;
+  }
+  section:first-of-type { padding-top: 0; }
+
+  /* ========== Hero ========== */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: 52px;
+  }
+  .hero-top {
+    display: flex; align-items: center; gap: 36px;
+    margin-bottom: 32px;
+  }
+  .hero-avatar {
+    width: 120px; height: 120px; border-radius: 50%;
+    object-fit: cover; border: 3px solid var(--border);
+    box-shadow: 0 0 40px rgba(88, 166, 255, 0.12);
+    flex-shrink: 0;
+  }
+  .hero-info h1 {
+    font-size: clamp(36px, 6vw, 56px);
+    font-weight: 700; letter-spacing: -0.04em; line-height: 1.1;
+    color: var(--text-primary);
+  }
+  .hero-info .hero-tagline {
+    margin-top: 8px; font-size: 18px; color: var(--text-secondary);
+    font-weight: 400;
+  }
+  .hero-subtitle {
+    font-size: 17px; line-height: 1.7;
+    color: var(--text-secondary); max-width: 640px;
+  }
+  .hero-meta {
+    margin-top: 28px; display: flex; flex-wrap: wrap; gap: 16px 24px;
+    font-size: 14px; color: var(--text-tertiary); align-items: center;
+  }
+  .hero-meta a {
+    color: var(--accent); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .hero-meta a:hover { color: var(--accent-hover); text-decoration: underline; }
+  .hero-meta .sep { color: var(--border); }
+
+  .hero-cta {
+    margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 22px; border-radius: 8px;
+    background: #238636; color: #fff;
+    font-size: 14px; font-weight: 500; text-decoration: none;
+    border: 1px solid rgba(240,246,252,0.1);
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #2ea043; }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 22px; border-radius: 8px;
+    background: var(--tag-bg); color: var(--text-primary);
+    font-size: 14px; font-weight: 500; text-decoration: none;
+    border: 1px solid var(--tag-border);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(110,118,129,0.25); border-color: var(--text-tertiary); }
+
+  /* ========== Highlights ========== */
+  .highlights {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px; margin-top: 48px;
+  }
+  .highlight-item {
+    text-align: center; padding: 24px 16px;
+    background: var(--bg-card); border-radius: 12px;
+    border: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+    transition: border-color 0.3s;
+  }
+  .highlight-item:hover { border-color: var(--tag-border); }
+  .highlight-num {
+    font-size: 28px; font-weight: 700; color: var(--accent);
+    font-family: "Times New Roman", Times, serif;
+    line-height: 1.2;
+  }
+  .highlight-label {
+    font-size: 13px; color: var(--text-secondary);
+    margin-top: 6px; line-height: 1.4;
+  }
+  @media (max-width: 768px) {
+    .highlights { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ========== Section Headers ========== */
+  .section-title {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700; letter-spacing: -0.03em; line-height: 1.15;
+    color: var(--text-primary); margin-bottom: 12px;
+  }
+  .section-title::before {
+    content: ''; display: inline-block; width: 4px; height: 0.8em;
+    background: var(--accent); border-radius: 2px;
+    margin-right: 14px; vertical-align: middle; opacity: 0.7;
+  }
+  .section-desc {
+    font-size: 15px; color: var(--text-secondary);
+    max-width: 640px; line-height: 1.7; margin-bottom: 48px;
+  }
+
+  /* ========== Education ========== */
+  .edu-grid { display: grid; gap: 20px; }
+
+  .edu-card {
+    background: var(--bg-card); border-radius: 12px;
+    padding: 28px 32px; border: 1px solid var(--border);
+    transition: background 0.3s, border-color 0.3s;
+    backdrop-filter: blur(8px);
+  }
+  .edu-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--tag-border);
+  }
+  .edu-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; }
+  .edu-degree { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .edu-period {
+    font-size: 13px; color: var(--text-tertiary); font-weight: 500;
+    white-space: nowrap; padding-top: 4px;
+  }
+  .edu-school { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+  .edu-details { margin-top: 16px; }
+  .edu-details p {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.7;
+    margin-bottom: 4px;
+  }
+  .edu-details strong { color: var(--text-primary); font-weight: 600; }
+  .edu-tag {
+    display: inline-block; padding: 2px 10px; border-radius: 20px;
+    background: var(--tag-bg); font-size: 12px; color: var(--text-secondary);
+    margin-right: 4px; margin-top: 6px; border: 1px solid var(--tag-border);
+  }
+
+  /* ========== Projects ========== */
+  .project-list { display: grid; gap: 24px; }
+
+  .project-card {
+    background: var(--bg-card); border-radius: 12px;
+    padding: 32px 36px; border: 1px solid var(--border);
+    transition: background 0.3s, border-color 0.3s;
+    backdrop-filter: blur(8px);
+  }
+  .project-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--tag-border);
+  }
+  .project-num {
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    letter-spacing: 0.04em; margin-bottom: 6px;
+    font-family: "Times New Roman", Times, serif;
+  }
+  .project-card h3 {
+    font-size: 18px; font-weight: 600; letter-spacing: -0.01em;
+    margin-bottom: 12px; line-height: 1.4;
+  }
+  .project-card > p {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .project-highlights {
+    margin-top: 12px; padding-left: 0; list-style: none;
+  }
+  .project-highlights li {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.7;
+    padding: 4px 0; padding-left: 18px; position: relative;
+  }
+  .project-highlights li::before {
+    content: ''; position: absolute; left: 0; top: 13px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); opacity: 0.4;
+  }
+  .project-metric {
+    display: inline-block; font-weight: 600; color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .project-card a {
+    color: var(--accent); text-decoration: none;
+  }
+  .project-card a:hover { text-decoration: underline; }
+
+  /* ========== Skills ========== */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .skill-card {
+    background: var(--bg-card); border-radius: 12px;
+    padding: 28px 32px; border: 1px solid var(--border);
+    transition: background 0.3s, border-color 0.3s;
+    backdrop-filter: blur(8px);
+  }
+  .skill-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--tag-border);
+  }
+  .skill-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(88, 166, 255, 0.12); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .skill-card h3 {
+    font-size: 15px; font-weight: 600; margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .skill-card p {
+    font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+  }
+  .skill-tags { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tags span {
+    padding: 3px 10px; border-radius: 20px;
+    background: var(--tag-bg); font-size: 12px;
+    color: var(--text-secondary); border: 1px solid var(--tag-border);
+  }
+
+  /* ========== Publications ========== */
+  .pub-list { display: grid; gap: 0; }
+  .pub-item {
+    padding: 20px 0; border-bottom: 1px solid var(--border);
+  }
+  .pub-item:last-child { border-bottom: none; }
+  .pub-title {
+    font-size: 14px; font-weight: 500; line-height: 1.6;
+    color: var(--text-primary); margin-bottom: 4px;
+  }
+  .pub-journal {
+    font-size: 13px; color: var(--text-tertiary); font-style: italic;
+  }
+  .pub-status {
+    display: inline-block; padding: 1px 8px; border-radius: 20px;
+    background: rgba(63, 185, 80, 0.12); font-size: 11px; color: var(--green);
+    font-style: normal; margin-left: 4px;
+    border: 1px solid rgba(63, 185, 80, 0.3);
+  }
+
+  /* ========== Experience ========== */
+  .exp-timeline { position: relative; padding-left: 0; }
+  .exp-item {
+    display: grid; grid-template-columns: 120px 1fr;
+    gap: 24px; padding: 22px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-period {
+    font-size: 13px; color: var(--text-tertiary); font-weight: 500;
+    padding-top: 2px;
+  }
+  .exp-content h3 {
+    font-size: 15px; font-weight: 600; margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .exp-content p {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.7;
+  }
+
+  /* ========== Other ========== */
+  .other-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .other-item {
+    padding: 22px 24px; background: var(--bg-card);
+    border-radius: 12px; border: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+  .other-item h4 {
+    font-size: 14px; font-weight: 600; margin-bottom: 6px;
+  }
+  .other-item ul {
+    list-style: none; padding: 0; margin: 0;
+  }
+  .other-item ul li {
+    font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+    padding: 3px 0; padding-left: 16px; position: relative;
+  }
+  .other-item ul li::before {
+    content: ''; position: absolute; left: 0; top: 11px;
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent); opacity: 0.4;
+  }
+
+  /* ========== Footer ========== */
+  footer {
+    padding: 48px 0 32px;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+    position: relative; z-index: 1;
+  }
+  .footer-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-copy { font-size: 12px; color: var(--text-tertiary); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a {
+    font-size: 12px; color: var(--text-tertiary);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--text-primary); }
+
+  /* ========== Scroll Animations ========== */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ========== Responsive ========== */
+  @media (max-width: 768px) {
+    :root { --section-gap: 72px; }
+    .nav-links { gap: 14px; }
+    .hero-top { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .hero-avatar { width: 90px; height: 90px; }
+    .hero-info h1 { font-size: 32px; }
+    .edu-card, .project-card, .skill-card { padding: 20px 20px; }
+    .exp-item { grid-template-columns: 1fr; gap: 4px; }
+    .hero-meta { gap: 10px 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .nav-links { display: none; }
+    .hero-cta { flex-direction: column; }
+    .btn-primary, .btn-secondary { text-align: center; justify-content: center; }
+  }
+
+  section[id] { scroll-margin-top: 64px; }
+</style>
+</head>
+<body>
+
+<!-- Particle Background Canvas -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-name">郑少奇</a>
+    <ul class="nav-links">
+      <li><a href="#education">教育背景</a></li>
+      <li><a href="#projects">项目经历</a></li>
+      <li><a href="#skills">专业技能</a></li>
+      <li><a href="#publications">学术成果</a></li>
+      <li><a href="#experience">实习经历</a></li>
+      <li><a href="https://github.com/MonkeyLuZSQ" target="_blank" rel="noopener" class="en">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero container">
+  <div class="hero-top reveal">
+    <img src="硕士学历照.jpg" alt="郑少奇" class="hero-avatar">
+    <div class="hero-info">
+      <h1>郑少奇</h1>
+      <div class="hero-tagline">GPU 高性能计算 · 大模型推理优化 · 异构并行</div>
+    </div>
+  </div>
+  <p class="hero-subtitle reveal reveal-delay-1">
+    西北工业大学计算数学博士，专注于 GPU 高性能计算与大模型推理优化。在 CPU-GPU 异构并行、混合精度计算、时空并行算法领域有深入研究，具备从底层算子到推理系统的全栈工程能力。
+  </p>
+  <div class="hero-meta reveal reveal-delay-2">
+    <span>西北工业大学 · 计算数学博士</span>
+    <span class="sep">|</span>
+    <span>2027 年 3 月毕业</span>
+    <span class="sep">|</span>
+    <a href="mailto:zhengshaoqi@mail.nwpu.edu.cn" class="en">zhengshaoqi@mail.nwpu.edu.cn</a>
+    <span class="sep">|</span>
+    <a href="https://github.com/MonkeyLuZSQ" target="_blank" rel="noopener" class="en">github.com/MonkeyLuZSQ</a>
+  </div>
+  <div class="hero-cta reveal reveal-delay-3">
+    <a href="#projects" class="btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      查看项目
+    </a>
+    <a href="https://github.com/MonkeyLuZSQ" target="_blank" rel="noopener" class="btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      <span class="en">GitHub</span>
+    </a>
+  </div>
+
+  <div class="highlights reveal reveal-delay-4">
+    <div class="highlight-item">
+      <div class="highlight-num">900×</div>
+      <div class="highlight-label">时空并行最高加速比</div>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-num">6 篇</div>
+      <div class="highlight-label">SCI 论文（含顶刊）</div>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-num">2/66</div>
+      <div class="highlight-label">硕士专业排名</div>
+    </div>
+    <div class="highlight-item">
+      <div class="highlight-num">国奖</div>
+      <div class="highlight-label">教育部国家奖学金</div>
+    </div>
+  </div>
+</section>
+
+<!-- Education -->
+<section id="education" class="container">
+  <h2 class="section-title reveal">教育背景</h2>
+  <p class="section-desc reveal">西北工业大学（985 / 双一流 A 类）数学与统计学院，本硕博连读，具备扎实的数学基础与高性能计算工程能力。</p>
+
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-header">
+        <div>
+          <div class="edu-degree">博士 · 计算数学</div>
+          <div class="edu-school">西北工业大学 · 数学与统计学院</div>
+        </div>
+        <div class="edu-period">2023.3 — 至今</div>
+      </div>
+      <div class="edu-details">
+        <p><strong>研究方向：</strong>CPU-GPU 异构并行、混合精度计算、时空并行算法、非局部模型及其数值算法</p>
+        <p><strong>核心课程：</strong>机器学习方法及应用、科学计算中的现代数值方法、计算固体力学（均 90+）</p>
+        <p><strong>荣誉：</strong>一等学业奖学金（2023-2024）</p>
+        <div>
+          <span class="edu-tag en">CUDA C++</span>
+          <span class="edu-tag en">MPI</span>
+          <span class="edu-tag">混合精度</span>
+          <span class="edu-tag en">ParaDiag</span>
+          <span class="edu-tag en">CUTLASS</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="edu-card reveal">
+      <div class="edu-header">
+        <div>
+          <div class="edu-degree">硕士 · 计算数学</div>
+          <div class="edu-school">西北工业大学 · 数学与统计学院</div>
+        </div>
+        <div class="edu-period">2020.9 — 2023.3</div>
+      </div>
+      <div class="edu-details">
+        <p><strong>研究方向：</strong>非均质材料多尺度近场动力学模型及数值方法、复合材料损伤断裂模拟</p>
+        <p><strong>排名：</strong>2 / 66 · 考研成绩 413 分</p>
+        <p><strong>荣誉：</strong>国家奖学金（教育部，2021-2022）、一等学业奖学金 ×2、校优秀毕业生</p>
+        <p><strong>核心课程：</strong>算法与优化、机器学习中的算法及其应用、偏微分方程的有限差分法（均 90+）</p>
+      </div>
+    </div>
+
+    <div class="edu-card reveal">
+      <div class="edu-header">
+        <div>
+          <div class="edu-degree">学士 · 信息与计算科学</div>
+          <div class="edu-school">西北工业大学 · 数学与统计学院</div>
+        </div>
+        <div class="edu-period">2016.9 — 2020.7</div>
+      </div>
+      <div class="edu-details">
+        <p><strong>排名：</strong>10 / 42</p>
+        <p><strong>核心课程：</strong>数学分析、偏微分方程数值解、常微分方程、C 程序设计（均 90+）</p>
+        <p><strong>荣誉：</strong>校三等奖学金、院优秀学生</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects (moved before Skills) -->
+<section id="projects" class="container">
+  <h2 class="section-title reveal">项目经历</h2>
+  <p class="section-desc reveal">涵盖省级重点工程、中科院战略先导项目及个人开源项目，覆盖异构并行计算、混合精度优化到大模型 Agent 全栈实践。</p>
+
+  <div class="project-list">
+    <div class="project-card reveal">
+      <div class="project-num">项目一</div>
+      <h3>广东省核心软件工程 — 橡胶疲劳寿命预测算法</h3>
+      <p>面向大规模工程仿真场景，构建 CPU-GPU 异构并行计算框架，实现从数值算法到系统工程的全链路优化。</p>
+      <ul class="project-highlights">
+        <li>设计 <span class="en">MPI + CUDA</span> 多 GPU 异构并行框架，实现 <span class="project-metric">100× 加速比</span></li>
+        <li>基于 NVIDIA GPU 库（<span class="en">cuBLAS / cuSPARSE / cuDSS / cuSOLVER</span>）进行稀疏矩阵计算与算子优化，积累 <strong>GEMM 调优经验</strong></li>
+        <li>创新 <span class="en">ParaDiag</span> 时间并行算法，实现 <span class="project-metric">~10× 时间维度加速</span>；时空混合并行方法达到 <span class="project-metric">300–900× 总加速比</span></li>
+        <li>混合精度计算（<span class="en">FP64 / FP32 / FP16</span>），实现 <span class="project-metric">2–3× 效率提升</span> 与 <span class="project-metric">2–3× 内存节省</span></li>
+      </ul>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">项目二</div>
+      <h3>中科院战略先导专项 — 纤维增强仿生橡胶多尺度分析</h3>
+      <p>针对大型复合材料结构的断裂仿真，设计高性能数值算法与统计多尺度方法。</p>
+      <ul class="project-highlights">
+        <li>提出能量密度边界修正模型与局部/非局部自适应耦合模型</li>
+        <li>基于近场动力学的统计多尺度方法，实现大型复合材料结构断裂仿真</li>
+        <li>使用 <span class="en">C++ / Eigen</span> 库重构核心代码（<span class="en">CSR</span> 稀疏存储 + <span class="en">BiCGSTAB</span> 求解器），实现 <span class="project-metric">60% 效率提升</span></li>
+      </ul>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">项目三 · <a href="https://github.com/MonkeyLuZSQ" target="_blank" rel="noopener" class="en">开源</a></div>
+      <h3>基于 <span class="en">vLLM</span> 的文献管理 Agent</h3>
+      <p>在 <span class="en">WSL + vLLM</span> 上构建本地 LLM 服务，提供 OpenAI 兼容 API，开发交互式文献问答与摘要 Agent。</p>
+      <ul class="project-highlights">
+        <li>基于 <span class="en">vLLM</span> 搭建本地推理服务，兼容 <span class="en">OpenAI API</span> 接口规范</li>
+        <li>针对小显存 GPU 优化上下文管理：<span class="en">Token</span> 预算控制、分块生成、文献卡片缓存、引用溯源</li>
+        <li>实现 <span class="en">RAG + Agent + MCP</span> 工程化实践，<a href="https://github.com/MonkeyLuZSQ" target="_blank" rel="noopener">代码已开源 →</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills" class="container">
+  <h2 class="section-title reveal">专业技能</h2>
+  <p class="section-desc reveal">从 GPU 底层算子优化到大模型推理系统，覆盖高性能计算与 AI Infra 全链路技术栈。</p>
+
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
+      </div>
+      <h3>高性能数值计算 & 异构并行</h3>
+      <p>精通偏微分方程数值解法与优化算法，擅长将数学理论转化为高效并行代码。熟练 <span class="en">C++ / CUDA C++</span>、<span class="en">Python</span>，掌握 <span class="en">MPI + CUDA</span> 多卡异构开发，会使用 <span class="en">Nsight / NCU</span> 等调优工具定位 <span class="en">Kernel</span> 瓶颈。深度使用 <span class="en">CUTLASS</span>、<span class="en">cuBLAS</span>、<span class="en">cuSPARSE</span> 等 <span class="en">NVIDIA GPU</span> 加速库。</p>
+      <div class="skill-tags">
+        <span class="en">C++ / CUDA C++</span>
+        <span class="en">MPI + CUDA</span>
+        <span class="en">CUTLASS</span>
+        <span class="en">cuBLAS</span>
+        <span class="en">cuSPARSE</span>
+        <span class="en">Nsight / NCU</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal reveal-delay-1">
+      <div class="skill-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v4a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><path d="M12 18v4"/></svg>
+      </div>
+      <h3>大模型系统 & 推理引擎</h3>
+      <p>掌握 Transformer 架构及常见分布式框架（<span class="en">DeepSpeed</span> 等），熟悉 <span class="en">vLLM</span>、<span class="en">TensorRT-LLM</span> 推理引擎，了解 <span class="en">PagedAttention</span>、<span class="en">KV Cache</span> 等主流推理优化方案。掌握 <span class="en">RAG</span>、<span class="en">Agent</span>、<span class="en">MCP</span> 落地范式，依托大模型辅助算法与 <span class="en">CUDA</span> 代码优化。</p>
+      <div class="skill-tags">
+        <span class="en">vLLM</span>
+        <span class="en">TensorRT-LLM</span>
+        <span class="en">DeepSpeed</span>
+        <span class="en">PagedAttention</span>
+        <span class="en">KV Cache</span>
+        <span class="en">RAG / Agent / MCP</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal reveal-delay-2">
+      <div class="skill-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <h3>编程语言 & 工具链</h3>
+      <p>熟练使用多种编程语言进行高性能开发与 AI 工程实践，善于利用 AI 辅助工具提升研发效率。</p>
+      <div class="skill-tags">
+        <span class="en">Python</span>
+        <span class="en">C / C++</span>
+        <span class="en">CUDA C++</span>
+        <span class="en">LaTeX</span>
+        <span class="en">Git</span>
+        <span class="en">Linux / WSL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Publications -->
+<section id="publications" class="container">
+  <h2 class="section-title reveal">学术成果</h2>
+  <p class="section-desc reveal">已发表及在审论文 6 篇，涵盖 <span class="en">International Journal of Mechanical Sciences</span>、<span class="en">Journal of Computational Physics</span> 等计算力学顶级期刊。</p>
+
+  <div class="pub-list">
+    <div class="pub-item reveal">
+      <div class="pub-title en">S. Zheng, Y. Chen, J. Zhang, Z. Yang. "An energy-based coupling approach of peridynamic and classical continuum mechanics for FGM brittle fractures."</div>
+      <div class="pub-journal en">International Journal of Mechanical Sciences, 327 (2026), p. 113802.</div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-title en">S. Zheng, S. Wu, Z. Yang, et al. "A Mixed-Precision Parallel-in-Time Scheme Based on ParaDiag for Nonlocal Peridynamic Simulation." <span class="pub-status">Under Review</span></div>
+      <div class="pub-journal">在审论文</div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-title en">S. Zheng, Z. Yang, et al. "A Mixed-Precision Space-Time Parallel Method for Peridynamics." <span class="pub-status">Under Review</span></div>
+      <div class="pub-journal">在审论文</div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-title en">Z. Yang, S. Zheng, F. Han, et al.</div>
+      <div class="pub-journal en">Communications in Computational Physics, 32 (2022), p. 424-449.</div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-title en">Z. Yang, S. Zheng, F. Han, et al.</div>
+      <div class="pub-journal en">International Journal of Mechanical Sciences, 259 (2023), p. 108611.</div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-title en">Z. Yang, S. Zheng, F. Han, et al.</div>
+      <div class="pub-journal en">Journal of Computational Physics, 489 (2023), p. 112277.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience" class="container">
+  <h2 class="section-title reveal">实习与工作经历</h2>
+
+  <div class="exp-timeline">
+    <div class="exp-item reveal">
+      <div class="exp-period">暑期实习</div>
+      <div class="exp-content">
+        <h3>荣耀终端有限公司（Honor）</h3>
+        <p>参与移动端 SDK 集成、接口开发与应用落地，熟练代码调试、第三方组件适配。</p>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-period">学术交流</div>
+      <div class="exp-content">
+        <h3>河南省科学院</h3>
+        <p>筹备多场学术会议，统筹会务分工，具备项目统筹、跨方沟通协调能力。</p>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-period">科研助教</div>
+      <div class="exp-content">
+        <h3>西北工业大学</h3>
+        <p>协助课程答疑、课业考核工作，梳理知识点并辅助导师开展科研辅助工作。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Other -->
+<section id="other" class="container">
+  <h2 class="section-title reveal">其他</h2>
+
+  <div class="other-grid">
+    <div class="other-item reveal">
+      <h4>学术会议</h4>
+      <ul>
+        <li>2024 ICCES 国际会议口头报告</li>
+        <li>世界计算力学大会口头报告</li>
+        <li>研究生学术论坛报告</li>
+      </ul>
+    </div>
+    <div class="other-item reveal">
+      <h4>英语能力</h4>
+      <ul>
+        <li><span class="en">CET-6: 532</span> 分</li>
+        <li>具备良好的英文学术写作与交流能力</li>
+      </ul>
+    </div>
+    <div class="other-item reveal">
+      <h4>体育竞技</h4>
+      <ul>
+        <li>多次参加马拉松赛事并完赛</li>
+        <li>校足球队、学院田径队、橄榄球队成员</li>
+        <li>斩获校级足球 11 人制、5 人制比赛冠军</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="container">
+  <div class="footer-inner">
+    <div class="footer-copy">&copy; 2025 郑少奇 · 西北工业大学</div>
+    <div class="footer-links">
+      <a href="mailto:zhengshaoqi@mail.nwpu.edu.cn" class="en">Email</a>
+      <a href="https://github.com/MonkeyLuZSQ" target="_blank" rel="noopener" class="en">GitHub</a>
+      <a href="#">回到顶部 ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ========== Galaxy Particle Background ==========
+(function() {
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let mouseX = -1000, mouseY = -1000;
+  const particles = [];
+  const PARTICLE_COUNT = 120;
+  const MAX_DIST = 140;
+  const MOUSE_RADIUS = 180;
+
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+  document.addEventListener('mouseleave', function() {
+    mouseX = -1000;
+    mouseY = -1000;
+  });
+
+  // Create particles
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 1.5 + 0.5,
+      opacity: Math.random() * 0.5 + 0.2
+    });
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+
+      // Mouse interaction: gentle attraction
+      const dx = mouseX - p.x;
+      const dy = mouseY - p.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < MOUSE_RADIUS && dist > 0) {
+        const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS * 0.008;
+        p.vx += dx / dist * force;
+        p.vy += dy / dist * force;
+      }
+
+      // Damping
+      p.vx *= 0.995;
+      p.vy *= 0.995;
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      // Wrap around
+      if (p.x < -10) p.x = width + 10;
+      if (p.x > width + 10) p.x = -10;
+      if (p.y < -10) p.y = height + 10;
+      if (p.y > height + 10) p.y = -10;
+
+      // Draw particle
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(139, 148, 158, ' + p.opacity + ')';
+      ctx.fill();
+
+      // Draw connections
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+        const ddx = p.x - p2.x;
+        const ddy = p.y - p2.y;
+        const dd = ddx * ddx + ddy * ddy;
+        if (dd < MAX_DIST * MAX_DIST) {
+          const alpha = (1 - Math.sqrt(dd) / MAX_DIST) * 0.15;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = 'rgba(88, 166, 255, ' + alpha + ')';
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+
+      // Mouse glow connections
+      if (dist < MOUSE_RADIUS) {
+        const alpha = (1 - dist / MOUSE_RADIUS) * 0.25;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(mouseX, mouseY);
+        ctx.strokeStyle = 'rgba(88, 166, 255, ' + alpha + ')';
+        ctx.lineWidth = 0.6;
+        ctx.stroke();
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// ========== Scroll Reveal ==========
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ========== Nav hide/show on scroll ==========
+let lastScroll = 0;
+const nav = document.getElementById('navbar');
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  if (currentScroll <= 0) {
+    nav.classList.remove('nav-hidden');
+    return;
+  }
+  if (currentScroll > lastScroll && currentScroll > 200) {
+    nav.classList.add('nav-hidden');
+  } else {
+    nav.classList.remove('nav-hidden');
+  }
+  lastScroll = currentScroll;
+}, { passive: true });
+
+// ========== Smooth scroll for nav links ==========
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
